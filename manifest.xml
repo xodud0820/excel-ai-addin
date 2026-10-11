@@ -7,12 +7,10 @@
   <DefaultLocale>ko-KR</DefaultLocale>
   <DisplayName DefaultValue="AI 셀 어시스턴트"/>
   <Description DefaultValue="선택한 셀/열/행을 자연어로 지시해 AI가 직접 수정합니다."/>
-  <IconUrl DefaultValue="https://YOUR_HOST/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://YOUR_HOST/icon-64.png"/>
-  <SupportUrl DefaultValue="https://YOUR_HOST/"/>
+  <SupportUrl DefaultValue="https://xodud0820.github.io/excel-ai-addin/"/>
   <AppDomains><AppDomain>https://generativelanguage.googleapis.com</AppDomain></AppDomains>
   <Hosts><Host Name="Workbook"/></Hosts>
   <Requirements><Sets><Set Name="ExcelApi" MinVersion="1.10"/></Sets></Requirements>
-  <DefaultSettings><SourceLocation DefaultValue="https://YOUR_HOST/taskpane.html"/></DefaultSettings>
+  <DefaultSettings><SourceLocation DefaultValue="https://xodud0820.github.io/excel-ai-addin/taskpane.html"/></DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>
