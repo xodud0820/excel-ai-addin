@@ -8,7 +8,15 @@
  input,select,textarea{width:100%;box-sizing:border-box;padding:5px;font:inherit}
  textarea{height:80px} button{padding:7px 12px;margin-right:6px;cursor:pointer}
  .primary{background:#107c41;color:#fff;border:0} #log{white-space:pre-wrap;background:#f5f5f5;padding:8px;margin-top:8px;max-height:260px;overflow:auto}
- #sel{background:#e8f4ec;padding:4px 6px;border-radius:3px} details{margin-bottom:8px}
+ #sel{background:#e8f4ec;padding:4px 6px;border-radius:3px}
+ #shapes{display:flex;flex-wrap:wrap;gap:6px;max-height:210px;overflow:auto}
+ .tile{position:relative;width:74px;border:2px solid #ccc;border-radius:4px;padding:2px;text-align:center;cursor:pointer;background:#fff}
+ .tile.sel{border-color:#107c41;background:#e8f4ec}
+ .tile .th{height:60px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+ .tile img{max-width:100%;max-height:60px}
+ .tile .no{position:absolute;top:0;left:0;background:#555;color:#fff;font-size:11px;padding:0 4px;border-radius:2px}
+ .tile.sel .no{background:#107c41}
+ .tile small{font-size:10px;color:#555} details{margin-bottom:8px}
 </style></head><body>
 <h3>AI 셀 어시스턴트</h3>
 <details id="cfg"><summary>설정 (API)</summary>
@@ -21,13 +29,24 @@
 </details>
 <div class="row"><label>대상 범위</label>
  <select id="scope">
-  <option value="selection">현재 선택 영역</option>
+  <option value="none">셀 사용 안 함 (이미지만 작업)</option>
+  <option value="selection" selected>현재 선택 영역</option>
   <option value="used">시트 전체 사용 범위</option>
   <option value="custom">직접 입력 (예: B2:B100, C:C, 3:3)</option>
  </select></div>
 <div class="row" id="customRow" style="display:none"><input id="custom" placeholder="B2:B100"/></div>
 <div class="row"><span id="sel">선택: -</span></div>
-<div class="row"><label>이미지 (체크한 이미지가 대상) <a href="#" onclick="listShapes();return false">새로고침</a></label><div id="shapes"></div></div>
+<div class="row"><label>이미지 선택 (썸네일을 클릭해 켜고 끈다) <a href="#" onclick="listShapes();return false">새로고침</a></label>
+ <div id="shapes"></div>
+ <div style="margin-top:4px">
+  <button onclick="selectAllShapes(true)">전체 선택</button>
+  <button onclick="selectAllShapes(false)">선택 해제</button>
+  <button onclick="selectShapesInRange(false)">셀 범위 안 이미지 선택</button>
+ </div>
+ <label style="display:inline"><input type="checkbox" id="autoSel" style="width:auto"> 셀 범위를 드래그하면 그 안의 이미지 자동 선택</label><br>
+ <label style="display:inline"><input type="checkbox" id="incOthers" style="width:auto" onchange="listShapes()"> 그룹/도형도 표시</label>
+ <div id="selCount" style="margin-top:3px;color:#107c41">선택된 이미지: 0개</div>
+</div>
 <div class="row"><label>지시사항 (자연어)</label>
  <textarea id="prompt" placeholder="예: B열 회사명에서 (주) 제거 / 체크한 이미지를 B2:D6 칸에 비율 유지로 맞춰줘 / 이미지 너비를 200pt로"></textarea></div>
 <button class="primary" id="run" onclick="run()">실행(미리보기)</button>
